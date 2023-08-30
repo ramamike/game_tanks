@@ -1,4 +1,4 @@
-package org.example;
+package org.ramamike.game;
 
 /**
  * Hello world!
@@ -8,6 +8,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+       Display.create(800,600, "Tanks");
     }
 }
