@@ -14,9 +14,15 @@ public abstract class Display {
         window=new JFrame(title);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // stop and close App     by cross
 
-        content =new Canvas();
+        content =new Canvas(){
+            public void paint(Graphics graphics){
+                super.paint(graphics);
+                render(graphics);
+            }
+        };
         Dimension size = new Dimension(width,height);
         content.setPreferredSize(size);
+        content.setBackground(Color.BLACK);
         window.setResizable(false); // not allowed change window size
         window.getContentPane().add(content); // add content without losing data cause window could have cross to close window
         window.pack(); // Causes this Window to be sized to fit the preferred size and layouts of its subcomponents.
@@ -25,4 +31,12 @@ public abstract class Display {
     }
 
 
+    public static void render() {
+        content.repaint();
+    }
+
+    private static void render(Graphics graphics) {
+        graphics.setColor(Color.WHITE);
+        graphics.fillOval(400-50, 300-50, 100,100);
+    }
 }
