@@ -1,6 +1,7 @@
 package org.ramamike.game.game;
 
 import org.ramamike.game.Display;
+import org.ramamike.game.graphics.TextureAtlas;
 import org.ramamike.game.io.Input;
 import org.ramamike.game.utils.Time;
 
@@ -14,6 +15,7 @@ public class Game implements Runnable {
     public static final String TITLE = "Tanks";
     public static final int CLEAR_COLOR = 0xff000000;
     public static final int NUM_BUFFERS = 3;
+    public static final String ATLAS_FILE_NAME = "texture_atlas.png";
 
     public static final float UPDATE_RATE = 60.0f;
     public static final float UPDATE_INTERVAL = Time.SECOND / UPDATE_RATE;
@@ -23,6 +25,7 @@ public class Game implements Runnable {
     private Thread gameThread;
     private Graphics2D graphics2D;
     private Input input;
+    private TextureAtlas atlas;
     // temp
     float x = 350;
     float y = 250;
@@ -39,6 +42,7 @@ public class Game implements Runnable {
         graphics2D = Display.getGraphics2D();
         input = new Input();
         Display.addInputListener(input);
+        atlas = new TextureAtlas(ATLAS_FILE_NAME);
     }
 
     public synchronized void start() {
@@ -118,24 +122,25 @@ public class Game implements Runnable {
     }
 
     private void update() {
-        if(input.getKey(KeyEvent.VK_UP)) {
-            y-=speed;
+        if (input.getKey(KeyEvent.VK_UP)) {
+            y -= speed;
         }
-        if(input.getKey(KeyEvent.VK_DOWN)) {
-            y+=speed;
+        if (input.getKey(KeyEvent.VK_DOWN)) {
+            y += speed;
         }
-        if(input.getKey(KeyEvent.VK_LEFT)) {
-            x-=speed;
+        if (input.getKey(KeyEvent.VK_LEFT)) {
+            x -= speed;
         }
-        if(input.getKey(KeyEvent.VK_RIGHT)) {
-            x+=speed;
+        if (input.getKey(KeyEvent.VK_RIGHT)) {
+            x += speed;
         }
     }
 
     private void render() {
         Display.clear();
         graphics2D.setColor(Color.WHITE);
-        graphics2D.fillOval( (int)(x+Math.sin(delta)*200), (int)y, (int)(radius*2), (int)(radius*2));
+        graphics2D.drawImage(atlas.cut(0, 0, 32, 32), 300, 300, null);
+//        graphics2D.fillOval( (int)(x+Math.sin(delta)*200), (int)y, (int)(radius*2), (int)(radius*2));
         Display.swapBuffer();
     }
 
