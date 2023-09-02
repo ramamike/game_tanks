@@ -53,7 +53,11 @@ public abstract class Display {
     public static void render(){
         bufferGraphics.setColor(new Color(0xff0000ff));
         bufferGraphics.fillOval((int)(350+ (Math.sin(delta)*200)),250,100,100);
-        delta +=0.02f;
+
+        ((Graphics2D)bufferGraphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        bufferGraphics.fillOval((int)(500+ (Math.sin(delta)*200)),250,100,100);
+        ((Graphics2D)bufferGraphics).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+//        delta +=0.02f;
     }
 
     public static void swapBuffer(){
