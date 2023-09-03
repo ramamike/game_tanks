@@ -1,6 +1,8 @@
 package org.ramamike.game.game;
 
 import org.ramamike.game.Display;
+import org.ramamike.game.graphics.Sprite;
+import org.ramamike.game.graphics.SpriteSheet;
 import org.ramamike.game.graphics.TextureAtlas;
 import org.ramamike.game.io.Input;
 import org.ramamike.game.utils.Time;
@@ -26,17 +28,7 @@ public class Game implements Runnable {
     private Graphics2D graphics2D;
     private Input input;
     private TextureAtlas atlas;
-    private SpriteSheet spriteSheet;
-    private Sprite sprite;
-    // temp
-    float x = 350;
-    float y = 250;
-    float delta = 0;
-    float radius = 50;
-    float speed = 3;
-
-
-    // temp end
+    private Player player;
 
     public Game() {
         running = false;
@@ -45,8 +37,7 @@ public class Game implements Runnable {
         input = new Input();
         Display.addInputListener(input);
         atlas = new TextureAtlas(ATLAS_FILE_NAME);
-        spriteSheet = new SpriteSheet(atlas.cut(8 * 16, 5 * 16, 2 * 16, 1 * 16), 2, 16);
-        sprite = new Sprite(spriteSheet, 1);
+        player = new Player(300, 300, 1, 3, atlas);
     }
 
     public synchronized void start() {
@@ -126,23 +117,12 @@ public class Game implements Runnable {
     }
 
     private void update() {
-        if (input.getKey(KeyEvent.VK_UP)) {
-            y -= speed;
-        }
-        if (input.getKey(KeyEvent.VK_DOWN)) {
-            y += speed;
-        }
-        if (input.getKey(KeyEvent.VK_LEFT)) {
-            x -= speed;
-        }
-        if (input.getKey(KeyEvent.VK_RIGHT)) {
-            x += speed;
-        }
+        player.update(input);
     }
 
     private void render() {
         Display.clear();
-        sprite.render(graphics2D, x, y);
+        player.render(graphics2D);
         Display.swapBuffer();
     }
 

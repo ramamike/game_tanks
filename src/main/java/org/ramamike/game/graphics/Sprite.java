@@ -1,4 +1,4 @@
-package org.ramamike.game.game;
+package org.ramamike.game.graphics;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
