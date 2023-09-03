@@ -52,7 +52,7 @@ public class Player extends Entity {
         for (Heading h : Heading.values()) {
             SpriteSheet sheet = new SpriteSheet(h.texture(atlas), SPRITE_PER_HEADING, SPRITE_SCALE);
             Sprite sprite = new Sprite(sheet, scale);
-            spriteMap.put(h,sprite);
+            spriteMap.put(h, sprite);
         }
 
     }
@@ -62,37 +62,37 @@ public class Player extends Entity {
         float newX = x;
         float newY = y;
 
-        if(input.getKey(KeyEvent.VK_UP)) {
-            newY-=speed;
+        if (input.getKey(KeyEvent.VK_UP)) {
+            newY -= speed;
             heading = Heading.NORTH;
         } else if (input.getKey(KeyEvent.VK_RIGHT)) {
-            newX+=speed;
+            newX += speed;
             heading = Heading.EAST;
-        }else if (input.getKey(KeyEvent.VK_DOWN)) {
-            newY+=speed;
+        } else if (input.getKey(KeyEvent.VK_DOWN)) {
+            newY += speed;
             heading = Heading.SOUTH;
-        }else if (input.getKey(KeyEvent.VK_LEFT)) {
-            newX-=speed;
+        } else if (input.getKey(KeyEvent.VK_LEFT)) {
+            newX -= speed;
             heading = Heading.WEST;
         }
 
-        if(newX<0) {
-            newX=0;
-        } else if (newX>=Game.WIDTH - SPRITE_SCALE*scale) {
-            newX = Game.WIDTH - SPRITE_SCALE*scale;
+        if (newX < 0) {
+            newX = 0;
+        } else if (newX >= Game.WIDTH - SPRITE_SCALE * scale) {
+            newX = Game.WIDTH - SPRITE_SCALE * scale;
         }
-        if(newY<0) {
-            newY=0;
-        } else if (newY>=Game.HEIGHT - SPRITE_SCALE*scale) {
-            newY = Game.HEIGHT - SPRITE_SCALE*scale;
+        if (newY < 0) {
+            newY = 0;
+        } else if (newY >= Game.HEIGHT - SPRITE_SCALE * scale) {
+            newY = Game.HEIGHT - SPRITE_SCALE * scale;
         }
-        x=newX;
-        y=newY;
+        x = newX;
+        y = newY;
 
     }
 
     @Override
     public void render(Graphics2D graphics) {
-        spriteMap.get(heading).render(graphics,x,y);
+        spriteMap.get(heading).render(graphics, x, y);
     }
 }

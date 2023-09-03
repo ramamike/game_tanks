@@ -1,6 +1,7 @@
 package org.ramamike.game.game;
 
 import org.ramamike.game.Display;
+import org.ramamike.game.game.level.Level;
 import org.ramamike.game.graphics.Sprite;
 import org.ramamike.game.graphics.SpriteSheet;
 import org.ramamike.game.graphics.TextureAtlas;
@@ -29,6 +30,7 @@ public class Game implements Runnable {
     private Input input;
     private TextureAtlas atlas;
     private Player player;
+    private Level lvl;
 
     public Game() {
         running = false;
@@ -37,7 +39,8 @@ public class Game implements Runnable {
         input = new Input();
         Display.addInputListener(input);
         atlas = new TextureAtlas(ATLAS_FILE_NAME);
-        player = new Player(300, 300, 1, 3, atlas);
+        player = new Player(300, 300, 2, 3, atlas);
+        lvl = new Level(atlas);
     }
 
     public synchronized void start() {
@@ -118,11 +121,14 @@ public class Game implements Runnable {
 
     private void update() {
         player.update(input);
+        lvl.update();
     }
 
     private void render() {
         Display.clear();
+        lvl.render(graphics2D);
         player.render(graphics2D);
+        lvl.renderGrass(graphics2D);
         Display.swapBuffer();
     }
 
